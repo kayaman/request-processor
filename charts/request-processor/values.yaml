@@ -1,0 +1,27 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/kayaman/processor
+  tag: 0.1.8
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+service:
+  type: ClusterIP
+  port: 4000
+  targetPort: 4000
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+targetEndpoint: 'http://interceptor-request-processor:4000/process'
+
+appConfig:
+  logLevel: 'info'
